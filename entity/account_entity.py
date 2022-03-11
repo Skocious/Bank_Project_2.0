@@ -5,6 +5,5 @@ class Account:
         self.customer_id = customer_id
         self.account_id = account_id
 
-    def __int__(self, cat):
-        self.cat = cat
-        pass
+
+
