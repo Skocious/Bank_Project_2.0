@@ -1,5 +1,4 @@
-
-import os   #enviornment variables
+import os  # environment variables
 
 from psycopg import connect, OperationalError
 
@@ -16,8 +15,8 @@ def create_connection():
         )
 
         return conn
-    except OperationalError as e:
-        return "Could not connect to the database"
+    except OperationalError:
+        return "Could not connect!"
 
 
 connection = create_connection()

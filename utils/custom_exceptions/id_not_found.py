@@ -1,0 +1,3 @@
+class IdNotFound(Exception):
+    pass
+

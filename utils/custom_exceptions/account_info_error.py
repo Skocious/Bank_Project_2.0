@@ -1,0 +1,3 @@
+class AccountInfoError(Exception):
+    pass
+
