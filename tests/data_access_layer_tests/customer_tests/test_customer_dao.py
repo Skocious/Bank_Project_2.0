@@ -28,3 +28,7 @@ def test_delete_customer_success():
     assert result
 
 # test customer unique id
+
+
+app.run()
+
