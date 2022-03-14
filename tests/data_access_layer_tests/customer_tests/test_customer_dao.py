@@ -1,10 +1,13 @@
 # Test create and Delete
 from data_access_layer.customer_dao_access.customer_dao_imp import CustomerDAOImp
 from entity.customer_entity import Customer
+from flask import Flask, request, jsonify
 
+app: Flask = Flask(__name__)
 customer_dao = CustomerDAOImp()
 
 
+@app.route("/customerc", methods=["POST"])
 def test_create_customer_success():
     test_customer = Customer(0, "Test", "Customer")
     returned_customer = customer_dao.insert_into_customers_table(test_customer)
@@ -13,6 +16,7 @@ def test_create_customer_success():
     print(customer_dao)
 
 
+@app.route("/customer/<customer_id>", methods=["GET"])
 def test_create_customer_with_unique_id():
     test_customer_unique = Customer(0, "test", "unique_id")
     result = customer_dao.insert_into_customers_table(test_customer_unique)
