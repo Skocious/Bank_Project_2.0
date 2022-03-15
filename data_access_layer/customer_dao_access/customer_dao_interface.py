@@ -5,7 +5,7 @@ from entity.customer_entity import Customer
 class CustomerDAOInterface(ABC):
 
     @abstractmethod
-    def insert_into_customers_table(self, customer_object: Customer) -> Customer:
+    def insert_into_customers_table(self, customer: Customer) -> Customer:
         pass
 
     @abstractmethod

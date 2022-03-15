@@ -1,5 +1,4 @@
 import os  # environment variables
-
 from psycopg import connect, OperationalError
 
 

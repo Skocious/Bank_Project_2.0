@@ -1,24 +1,29 @@
 from data_access_layer.customer_dao_access.customer_dao_interface import CustomerDAOInterface
 from entity.customer_entity import Customer
 from utils.create_connection import connection
+from utils.custom_exceptions.connetion_problem import ConnectionProblem
+from utils.custom_exceptions.id_not_found import IdNotFound
 
 
 class CustomerDAOImp(CustomerDAOInterface):
 
-    def insert_into_customers_table(self, customer_object: Customer) -> Customer:
-        sql = "insert into customers values(default, %s, %s) returning customer_id"
-        cursor = connection.cursor()
-        cursor.execute(sql, (customer_object.first_name, customer_object.last_name))
-        connection.commit()
-        returned_id = cursor.fetchone()[0]
-        customer_object.customer_id = returned_id
-        return customer_object
+    def insert_into_customers_table(self, customer: Customer) -> Customer:
+        try:
+            sql = "insert into customers values(default, %s, %s) returning customer_id"
+            cursor = connection.cursor()
+            cursor.execute(sql, (customer.first_name, customer.last_name))
+            connection.commit()
+            returned_id = cursor.fetchone()[0]
+            customer.customer_id = returned_id
+            return customer
+        except ConnectionProblem as e:
+            raise ConnectionProblem(str(e))
 
     # set upp SQL
     # create cursor
     # use cursor to execute sql a statement
     # remember to commit transaction
-    # get teh returned generated id
+    # get the returned generated id
     # assign to customer object
     # return customer object
 
@@ -29,14 +34,17 @@ class CustomerDAOImp(CustomerDAOInterface):
         # ck that the table was affected
         # assuming true, return true
         # else do something else
-        sql = "delete from customers where customer_id = %s"
-        cursor = connection.cursor()
-        cursor.execute(sql, [customer_id])
-        connection.commit()
-        if cursor.rowcount != 0:
-            return True
-        else:
-            return False
+        try:
+            sql = "delete from customers where customer_id = %s"
+            cursor = connection.cursor()
+            cursor.execute(sql, [customer_id])
+            connection.commit()
+            if cursor.rowcount != 0:
+                return True
+            else:
+                raise IdNotFound("Id not found")
+        except ConnectionProblem as e:
+            raise ConnectionProblem(str(e))
 
 
 """

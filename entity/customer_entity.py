@@ -5,4 +5,9 @@ class Customer:
         self.first_name = first_name
         self.last_name = last_name
 
-
+    def customer_dictionary(self):
+        return {
+                "customerId": self.customer_id,
+                "firstName": self.first_name,
+                "lastName": self.last_name
+        }
