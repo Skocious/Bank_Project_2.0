@@ -1,4 +1,4 @@
-from create_connection import connection
+from utils.create_connection import connection
 
 
 def db_reset():

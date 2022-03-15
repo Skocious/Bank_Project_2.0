@@ -9,7 +9,7 @@ return
 from typing import List
 from data_access_layer.account_dao_access.account_dao_interface import AccountDAOInterface
 from entity.account_entity import Account
-from create_connection import connection
+from utils.create_connection import connection
 
 account_dao = AccountDAOInterface
 

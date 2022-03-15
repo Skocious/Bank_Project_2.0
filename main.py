@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-
 from data_access_layer.customer_dao_access.customer_dao_imp import CustomerDAOImp
 from entity.customer_entity import Customer
 from service_layer.customer_service_layer.customer_service_imp import CustomerServiceImp
@@ -13,9 +12,10 @@ customer_dao = CustomerDAOImp()
 customer_service = CustomerServiceImp(customer_dao)
 
 
-@app.route("/customers", methods=["POST"])
+@app.route("/customer", methods=["POST"])
 def create_customer():
     try:
+        print("I am here")
         customer_info = request.get_json()
         customer = Customer(customer_info["customerId"],
                             customer_info["firstName"],
@@ -44,6 +44,6 @@ def delete_customer(customer_id):
         return jsonify(return_message)
 
 
-# @app.route("/account")
+app.run(host='0.0.0.0', debug=True)
+#app.run()
 
-app.run()
