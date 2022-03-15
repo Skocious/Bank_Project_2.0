@@ -22,10 +22,3 @@ class CustomerServiceImp(CustomerServiceInterface):
             return self.customer_dao.delete_from_customers_table_by_customer_id(int(customer_id))
         except ValueError:
             raise BadId("Please provide a valid customer Id.")
-
-
-
-
-
-
-

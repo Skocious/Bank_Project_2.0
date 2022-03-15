@@ -33,5 +33,10 @@ class AccountDAOInterface(ABC):
         pass
 
     @abstractmethod
+    def transfer_funds(self, sender_account_id: int, receiver_id: float):
+        pass
+
+    @abstractmethod
     def delete_account_by_id(self, account_id: int) -> bool:
         pass
+

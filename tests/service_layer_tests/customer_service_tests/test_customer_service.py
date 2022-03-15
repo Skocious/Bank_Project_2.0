@@ -15,12 +15,20 @@ def test_catch_non_string_first_name():
         assert str(e) == "Please enter valid first name."
 
 
+def test_catch_non_string_last_name():
+    try:
+        customer_service.create_customer_service(Customer(0, "FN", 0))
+        assert False
+    except BadName as e:
+        assert str(e) == "Please enter valid first name <20 characters."
+
+
 def test_catch_first_name_too_long():
     try:
         customer_service.create_customer_service(Customer(0, "This name is way to long!", "Doe"))
         assert False
     except BadName as e:
-        assert str(e) == "Please enter valid first name <20 characters."
+        assert str(e) == "Please enter valid last name <20 characters."
 
 
 def test_catch_last_name_too_long():
@@ -28,4 +36,4 @@ def test_catch_last_name_too_long():
         customer_service.create_customer_service(Customer(0, "Doe", "This name is way to long!"))
         assert False
     except BadName as e:
-        assert str(e) == "Please enter valid last name <20 characters."
+        assert str(e) == "Please enter valid first name <20 characters."

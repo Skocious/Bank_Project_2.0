@@ -1,6 +1,6 @@
 from data_access_layer.customer_dao_access.customer_dao_interface import CustomerDAOInterface
 from entity.customer_entity import Customer
-from utils.create_connection import connection
+from create_connection import connection
 from utils.custom_exceptions.connetion_problem import ConnectionProblem
 from utils.custom_exceptions.id_not_found import IdNotFound
 

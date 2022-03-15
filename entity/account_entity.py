@@ -5,5 +5,10 @@ class Account:
         self.customer_id = customer_id
         self.account_id = account_id
 
-
+    def account_dict(self):
+        return {
+            "accountBal": self.account_bal,
+            "customerId": self.customer_id,
+            "accountId": self.account_id
+        }
 

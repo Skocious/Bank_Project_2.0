@@ -9,7 +9,9 @@ return
 from typing import List
 from data_access_layer.account_dao_access.account_dao_interface import AccountDAOInterface
 from entity.account_entity import Account
-from utils.create_connection import connection
+from create_connection import connection
+
+account_dao = AccountDAOInterface
 
 
 class AccountDAOImp(AccountDAOInterface):
@@ -47,6 +49,9 @@ class AccountDAOImp(AccountDAOInterface):
         cursor.execute(sql, (account.account_bal, account.customer_id, account.account_id))
         connection.commit()
         return account
+
+    def transfer_funds(self, sender_account_id: int, receiver_id: float):
+        pass
 
     def delete_account_by_id(self, account_id: int) -> bool:
         sql = "delete from accounts where account_id = %s"

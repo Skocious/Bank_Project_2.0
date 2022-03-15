@@ -1,4 +1,4 @@
-from utils.create_connection import connection
+from create_connection import connection
 
 
 def db_reset():
@@ -6,7 +6,7 @@ def db_reset():
     cursor = connection.cursor()
     cursor.execute(sql)
     connection.commit()
-    result = cursor.rowcount == 0
+    result = cursor.rowcount
     assert result
     print(result)
 
@@ -16,7 +16,7 @@ def dbc_insert():
     cursor = connection.cursor()
     cursor.execute(sql)
     connection.commit()
-    result = cursor.fetchone()[-1] == -1
+    result = cursor.rowcount
     assert result
     print(result)
 
@@ -26,7 +26,7 @@ def dba_insert():
     cursor = connection.cursor()
     cursor.execute(sql)
     connection.commit()
-    result = cursor.fetchone()[-1] == -1
+    result = cursor.rowcount
     assert result
     print(result)
 
