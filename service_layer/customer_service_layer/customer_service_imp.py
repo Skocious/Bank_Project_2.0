@@ -9,11 +9,11 @@ class CustomerServiceImp(CustomerServiceInterface):
     def create_customer_service(self, customer: Customer) -> Customer:
         if type(customer.first_name) != str:
             raise BadName("Please enter valid first name.")
-        elif len(customer.first_name) <= 21:
+        elif len(customer.first_name) >= 21:
             raise BadName("Please enter valid first name <20 characters.")
         elif type(customer.last_name) != str:
             raise BadName("Please enter valid last name.")
-        elif len(customer.last_name) <= 21:
+        elif len(customer.last_name) >= 21:
             raise BadName("Please enter valid last name <20 characters.")
         return self.customer_dao.insert_into_customers_table(customer)
 
