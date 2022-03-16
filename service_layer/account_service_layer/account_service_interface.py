@@ -28,3 +28,15 @@ class AccountServiceInterface(ABC):
     @abstractmethod
     def service_delete_account_by_id(self, account_id: int) -> bool:
         pass
+
+    @abstractmethod
+    def withdraw(self, client_id: int, account_id: int, withdraw: int):
+        pass
+
+    @abstractmethod
+    def deposit(self, client_id: int, account_id: int, deposit: int):
+        pass
+
+    @abstractmethod
+    def transfer_money(self, client_id: int, from_id: int, to_id: int, amount: int):
+        pass

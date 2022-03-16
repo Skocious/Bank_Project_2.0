@@ -25,7 +25,7 @@ class AccountDAOInterface(ABC):
         pass
 
     @abstractmethod
-    def get_all_accounts_for_customer(self) -> List[Account]:
+    def get_all_accounts_for_customer(self, customer_id: int) -> List[Account]:
         pass
 
     @abstractmethod
@@ -33,7 +33,7 @@ class AccountDAOInterface(ABC):
         pass
 
     @abstractmethod
-    def transfer_funds(self, sender_account_id: int, receiver_id: float):
+    def transfer_funds(self, sender_id: int, receiver_id: int, amount: float) -> bool:
         pass
 
     @abstractmethod

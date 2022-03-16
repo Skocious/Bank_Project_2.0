@@ -33,7 +33,7 @@ class AccountDAOImp(AccountDAOInterface):
         account = Account(*result)
         return account
 
-    def get_all_accounts_for_customer(self) -> List[Account]:
+    def get_all_accounts_for_customer(self, customer_id: int) -> List[Account]:
         sql = "select * from accounts"
         cursor = connection.cursor()
         cursor.execute(sql)
@@ -50,12 +50,20 @@ class AccountDAOImp(AccountDAOInterface):
         connection.commit()
         return account
 
-    def transfer_funds(self, sender_account_id: int, receiver_id: float):
-        pass
-
     def delete_account_by_id(self, account_id: int) -> bool:
         sql = "delete from accounts where account_id = %s"
         cursor = connection.cursor()
         cursor.execute(sql, [account_id])
         connection.commit()
         return True
+
+
+
+    def transfer_funds(self, account: Account) -> []:
+        sql = "update accounts set account_bal = case" \
+              "when customer_id=%s then %s where customer_id = %s"
+        cursor = connection.cursor()
+        cursor.execute(sql, (account.account_bal, account.customer_id, account.account_id))
+        connection.commit()
+        return account
+

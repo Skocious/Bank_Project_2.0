@@ -10,12 +10,12 @@ account_service = AccountServiceImp(account_dao)
 def test_create_new_account():
     test_account = Account(1000, 100, 0)
     returned_account = account_dao.create_new_account(test_account)
-    assert returned_account.account_id == test_account.account_id
+    assert returned_account.account_id != 0
 
 
 def test_non_int_id():
     try:
-        account = Account("zero", -2, -2)
+        account = Account("zero", 1, 0)
         result = account_dao.create_new_account(account)
         assert result.account_id != 0
     except IdNotFound as e:
@@ -25,7 +25,7 @@ def test_non_int_id():
 def test_get_account_info_by_id():
     test_account2 = Account(2000, 100, 0)
     created_account = account_dao.create_new_account(test_account2)
-    new_acct_get = account_dao.get_account_info_by_account_id(6)
+    new_acct_get = account_dao.get_account_info_by_account_id(3)
     assert new_acct_get.account_id != created_account.account_id
 
 
@@ -40,7 +40,7 @@ def test_no_account_found_by_id():
 
 
 def test_get_all_accounts_for_customer():
-    get_acct = account_dao.get_all_accounts_for_customer()
+    get_acct = account_dao.get_all_accounts_for_customer(100)
     assert len(get_acct) >= 2
 
 
@@ -56,14 +56,22 @@ def test_update_account_by_id():
 
 
 def test_transfer_between_accounts():
-    transfer_from = Account(100, 200, 0)
-    transfer_to = Account(100, 300, 0)
-    account_dao.create_new_account(transfer_from)
-    account_dao.create_new_account(transfer_to)
+    try:
+        account_dao.transfer_funds(6, 1, 10.00)
+        assert False
+    except IdNotFound as e:
+        assert print(str(e))
 
+
+
+   # transfer_from = Account(100, 200, 0)
+   # transfer_to = Account(100, 300, 0)
+   # account_dao.create_new_account(transfer_from)
+   # account_dao.create_new_account(transfer_to)
+   # account_dao.update_to_account()
 
 def test_delete_account_by_id():
-    deleted_acct = account_dao.delete_account_by_id(-1)
+    deleted_acct = account_dao.delete_account_by_id(1)
     assert deleted_acct
 
 

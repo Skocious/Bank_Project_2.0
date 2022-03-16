@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from psycopg import OperationalError
 
 from data_access_layer.account_dao_access.account_dao_implementation import AccountDAOImp
 from data_access_layer.customer_dao_access.customer_dao_imp import CustomerDAOImp
@@ -36,6 +37,8 @@ def create_customer():
     except IdNotFound as e:
         return_message = {"message": str(e)}
         return jsonify(return_message)
+    except OperationalError as e:
+        print(str(e))
 
 
 @app.route("/customer/<customer_id>", methods=["DELETE"])
@@ -48,6 +51,8 @@ def delete_customer(customer_id):
     except BadId as e:
         return_message = {"message": str(e)}
         return jsonify(return_message)
+    except OperationalError as e:
+        print(str(e))
 
 
 @app.route("/accounts", methods=["POST"])
@@ -63,6 +68,8 @@ def create_new_account():
     except BadId as e:
         return_message = {"message": str(e)}
         return jsonify(return_message)
+    except OperationalError as e:
+        print(str(e))
 
 
 @app.route("/accounts/<account_id>", methods=["GET"])
@@ -75,6 +82,22 @@ def get_account_by_acct_id(account_id):
     except BadId as e:
         return_message = {"message": str(e)}
         return jsonify(return_message)
+    except OperationalError as e:
+        print(str(e))
+
+
+@app.route("/accounts/<account_id>", methods=["DELETE"])
+def delete_account_by_account_id(account_id):
+    try:
+        result = account_service.service_delete_account_by_id(account_id)
+        result_dictionary = {"result": result}
+        result_json = jsonify(result_dictionary)
+        return result_json
+    except BadId as e:
+        return_message = {"message": str(e)}
+        return jsonify(return_message)
+    except OperationalError as e:
+        print(str(e))
 
 
 app.run(host='0.0.0.0', debug=True)

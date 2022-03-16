@@ -1,0 +1,3 @@
+class NoNegativeNum(Exception):
+    pass
+
